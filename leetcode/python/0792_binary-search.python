@@ -1,0 +1,19 @@
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        a = 0
+        b = len(nums) - 1
+        while a < b:
+            m = a + (b - a) / 2
+            if nums[m] < target:
+                a = m + 1
+            else:
+                b = m
+        if a < len(nums) and nums[a] == target:
+            return a
+        return -1
+        

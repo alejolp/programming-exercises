@@ -1,0 +1,49 @@
+
+def startswith2(s, p, k):
+    if len(p) > (len(s) - k): 
+        return False
+    for i in range(len(p)):
+        if p[i] != '?' and p[i] != s[i + k]:
+            return False
+    return True
+
+def find2(s, p, k):
+    if len(p) > (len(s) - k):
+        return -1
+    i = k
+    while i < len(s) - len(p) + 1:
+        if startswith2(s, p, i):
+            return i
+        i = i + 1
+    return -1
+
+def rfind2(s, p, k):
+    if len(p) > (len(s) - k):
+        return -1
+    i = len(s) - len(p)
+    while i >= k:
+        if startswith2(s, p, i):
+            return i
+        i = i - 1
+    return -1
+
+class Solution(object):
+    def isMatch(self, S, P):
+        L = P.split('*')
+        Ps = 0
+        for i, e in enumerate(L):
+            if i == 0:
+                if not startswith2(S, L[i], 0):
+                    return False
+                Ps += len(L[i])
+            elif i == (len(L) - 1):
+                k = rfind2(S, L[i], Ps)
+                if k == -1:
+                    return False
+                Ps = k + len(L[i])
+            else:
+                k = find2(S, L[i], Ps)
+                if k == -1:
+                    return False
+                Ps = k + len(L[i])
+        return Ps == len(S)

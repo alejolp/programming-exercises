@@ -1,0 +1,45 @@
+class Solution(object):
+    def networkDelayTime(self, times, N, K):
+        """
+        :type times: List[List[int]]
+        :type N: int
+        :type K: int
+        :rtype: int
+        """
+
+        INF = 1<<30
+        D = [None] * (N+1)
+        T = [None] * (N+1)
+        V = [False] * (N+1)
+        
+        for i in range(1, N+1):
+            D[i] = []
+            T[i] = INF
+        for u, v, w in times:
+            e = D[u]
+            e.append((v, w))
+        
+        T[K] = 0
+        
+        while True:
+            # find next element
+            nextmin = INF
+            nextmini = INF
+            for i in range(1, N+1):
+                if T[i] < nextmin and not V[i]:
+                    nextmin = T[i]
+                    nextmini = i
+                    
+            if nextmin == INF:
+                break
+                
+            # process adyacent elements
+            V[nextmini] = True
+            
+            for v, w in D[nextmini]:
+                T[v] = min(T[nextmini] + w, T[v])
+            
+        mm = max(T[1:])
+        if mm == INF:
+            return -1
+        return mm

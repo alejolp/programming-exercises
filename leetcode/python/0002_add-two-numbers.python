@@ -1,0 +1,50 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    
+    def insertNewDigit(self, x):
+        newnode = ListNode(x)
+        if self.Rstart is None:
+            self.Rstart = newnode
+            self.Rcurr = newnode
+        else:
+            self.Rcurr.next = newnode
+            self.Rcurr = newnode
+
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        self.Rstart = None
+        self.Rcurr = None
+        prevn = 0
+        
+        while l1 is not None and l2 is not None:
+            n = l1.val + l2.val + prevn
+            prevn = n / 10
+            self.insertNewDigit(n % 10)
+            l1 = l1.next
+            l2 = l2.next
+
+        while l1 is not None:
+            n = l1.val + prevn
+            prevn = n / 10
+            self.insertNewDigit(n % 10)
+            l1 = l1.next
+
+        while l2 is not None:
+            n = l2.val + prevn
+            prevn = n / 10
+            self.insertNewDigit(n % 10)
+            l2 = l2.next
+
+        if prevn != 0:
+            self.insertNewDigit(prevn)
+
+        return self.Rstart

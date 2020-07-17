@@ -1,0 +1,32 @@
+class Solution:
+    def F(self, board, x, y, word, i):
+        if i == len(word):
+            return True
+        if y < 0 or x < 0 or y >= len(board) or x >= len(board[y]):
+            return False
+        e = board[y][x]
+        if e != word[i]:
+            return False
+        board[y][x] = '+'
+        ret = False
+        if self.F(board, x - 1, y, word, i + 1):
+            ret = True
+        elif self.F(board, x + 1, y, word, i + 1):
+            ret = True
+        elif self.F(board, x, y - 1, word, i + 1):
+            ret = True
+        elif self.F(board, x, y + 1, word, i + 1):
+            ret = True
+        board[y][x] = e
+        return ret
+        
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        y = 0
+        for line in board:
+            for x, e in enumerate(line):
+                if e == word[0]:
+                    if self.F(board, x, y, word, 0):
+                        return True
+            y = y + 1
+        return False
+        

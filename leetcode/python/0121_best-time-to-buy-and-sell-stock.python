@@ -1,0 +1,17 @@
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if len(prices) == 0: return 0
+        M = [None] * len(prices)
+        m = prices[-1]
+        for i, e in enumerate(reversed(prices)):
+            m = max(m, e)
+            M[len(M) - i - 1] = m
+        m = 0
+        for a, e in zip((M), prices):
+            m = max(a - e, m)
+        print M, m, prices
+        return max(0, m)

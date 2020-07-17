@@ -1,0 +1,11 @@
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        L = sorted(nums)
+        i = 0
+        while i < (len(L) - 1):
+            if L[i] != L[i + 1]:
+                return L[i]
+            i = i + 2
+        return L[i]
+
+        

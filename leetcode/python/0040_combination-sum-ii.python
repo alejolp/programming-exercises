@@ -1,0 +1,21 @@
+
+class Solution(object):
+    def f(self, candidates, target, current, L, start):
+        for i in range(start, len(candidates)):
+            e = candidates[i]
+            if target > e:
+                self.f(candidates, target - e, current + [e], L, i + 1)
+            elif target == e:
+                L.append(tuple(sorted(current + [e])))
+                
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        candidates = ((candidates))
+        L = []
+        self.f(candidates, target, [], L, 0)
+        return [list(x) for x in set(L)]
+        

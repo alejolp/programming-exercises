@@ -1,0 +1,10 @@
+class Solution(object):
+    def reverseString(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        a = list(s)
+        for i in range(len(s) / 2):
+            a[i], a[len(s) - i - 1] = a[len(s) - i - 1], a[i]
+        return ''.join(a)

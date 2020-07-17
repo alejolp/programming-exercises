@@ -1,0 +1,18 @@
+class Solution(object):
+    def peakIndexInMountainArray(self, A):
+        """
+        :type A: List[int]
+        :rtype: int
+        """
+        a = 0
+        b = len(A) - 1
+        while a < b:
+            m1 = a + (b-a) / 3
+            m2 = a + 2 * (b - a) / 3
+            if A[m1] < A[m2]:
+                a = m1 + 1
+            else:
+                b = m2
+        if a < len(A):
+            return a
+        return -1

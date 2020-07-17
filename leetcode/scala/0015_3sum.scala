@@ -38,4 +38,3 @@ object Solution {
     return R.toList
   }
 }
-
