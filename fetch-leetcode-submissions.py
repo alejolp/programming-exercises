@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import glob
+import hashlib
 import json
 import os
 import subprocess
@@ -15,6 +17,14 @@ def read_url(url, cookies_file):
 def main():
     cookies_file = sys.argv[1]
     problem_info = {}
+    submissions = set()
+
+    # build the set of code already submitted
+    for filename in glob.glob('**', recursive=True):
+        if os.path.isfile(filename):
+            with open(filename, 'rb') as f:
+                h = hashlib.sha1(f.read().strip()).hexdigest()
+                submissions.add(h)
 
     # get the list of all problems
     data = read_url("https://leetcode.com/api/problems/all/", cookies_file)
@@ -29,14 +39,21 @@ def main():
         time.sleep(1)
         # get the list of submissions
         data = read_url("https://leetcode.com/api/submissions/?offset={0}&limit=20&lastkey=".format(offset), cookies_file)
-        for elem in data['submissions_dump']:
+        for elem in data.get('submissions_dump', []):
             if elem['status_display'].lower() == 'accepted':
+                qcode = elem['code'].strip().encode('utf-8')
+                qhash = hashlib.sha1(qcode).hexdigest()
+
                 if elem['title'] in problem_info:
                     info = problem_info[elem['title']]
                     qid = "{0:04d}_{1}".format(info['id'], info['slug'])
                 else:
                     qid = "{0}".format(elem['id'])
                 qext = elem['lang']
+
+                if qhash in submissions:
+                    print('Already exists: {0}'.format(qid))
+                    continue
 
                 nextx = 1
                 fname = 'tmp/{0}.{1}'.format(qid, qext)
@@ -45,9 +62,9 @@ def main():
                     nextx = nextx + 1
 
                 with open(fname, 'wb') as wf:
-                    wf.write(elem['code'].encode('utf-8'))
+                    wf.write(qcode)
 
-        if len(data['submissions_dump']) < 20:
+        if len(data.get('submissions_dump', [])) < 20:
             break
 
         offset = offset + 20
