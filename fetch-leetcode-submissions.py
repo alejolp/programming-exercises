@@ -36,9 +36,11 @@ def main():
 
     offset = 0
     while True:
-        time.sleep(1)
+        time.sleep(5)
         # get the list of submissions
         data = read_url("https://leetcode.com/api/submissions/?offset={0}&limit=20&lastkey=".format(offset), cookies_file)
+        print('Fetched offset {}'.format(offset))
+
         for elem in data.get('submissions_dump', []):
             if elem['status_display'].lower() == 'accepted':
                 qcode = elem['code'].strip().encode('utf-8')
