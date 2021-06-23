@@ -1,50 +1,45 @@
 # Definition for singly-linked list.
 # class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution(object):
-    
-    def insertNewDigit(self, x):
-        newnode = ListNode(x)
-        if self.Rstart is None:
-            self.Rstart = newnode
-            self.Rcurr = newnode
-        else:
-            self.Rcurr.next = newnode
-            self.Rcurr = newnode
-
     def addTwoNumbers(self, l1, l2):
         """
         :type l1: ListNode
         :type l2: ListNode
         :rtype: ListNode
         """
-        self.Rstart = None
-        self.Rcurr = None
-        prevn = 0
         
-        while l1 is not None and l2 is not None:
-            n = l1.val + l2.val + prevn
-            prevn = n / 10
-            self.insertNewDigit(n % 10)
-            l1 = l1.next
-            l2 = l2.next
-
-        while l1 is not None:
-            n = l1.val + prevn
-            prevn = n / 10
-            self.insertNewDigit(n % 10)
-            l1 = l1.next
-
-        while l2 is not None:
-            n = l2.val + prevn
-            prevn = n / 10
-            self.insertNewDigit(n % 10)
-            l2 = l2.next
-
-        if prevn != 0:
-            self.insertNewDigit(prevn)
-
-        return self.Rstart
+        aux1 = l1
+        aux2 = l2
+        r = 0
+        head = None
+        tail = None
+        
+        while aux1 or aux2 or r > 0:
+            if aux1:
+                val1 = aux1.val
+                aux1 = aux1.next
+            else:
+                val1 = 0
+            
+            if aux2:
+                val2 = aux2.val
+                aux2 = aux2.next
+            else:
+                val2 = 0
+            
+            n = val1 + val2 + r
+            r = n / 10
+            
+            newdigitnode = ListNode(n % 10)
+            
+            if head == None:
+                head = newdigitnode
+                tail = newdigitnode
+            else:
+                tail.next = newdigitnode
+                tail = newdigitnode
+        
+        return head

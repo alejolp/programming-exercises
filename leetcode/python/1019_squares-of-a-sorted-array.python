@@ -1,0 +1,28 @@
+class Solution(object):
+    def sortedSquares(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        return list(sorted(map(lambda x: (x*x), nums)))
+    
+        p1 = 0
+        while p1 < len(nums):
+            nums[p1] = nums[p1] * nums[p1]
+            p1 = p1 + 1
+        
+        result = [None] * len(nums)
+        p1 = 0
+        p2 = len(nums) - 1
+        p3 = len(nums) - 1
+        
+        while p1 <= p2:
+            if nums[p1] > nums[p2]:
+                result[p3] = nums[p1]
+                p1 = p1 + 1
+            else:
+                result[p3] = nums[p2]
+                p2 = p2 - 1
+            p3 = p3 - 1
+        
+        return result

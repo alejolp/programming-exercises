@@ -1,0 +1,19 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        pr = 0
+        pw = 0
+        while pr < len(nums):
+            e = nums[pr]
+            start = pr
+            k = 0
+            while pr < len(nums) and e == nums[pr] and k < 2:
+                pr = pr + 1
+                k = k + 1
+            print((e, pr, pw, k))
+            for i in range(k):
+                nums[pw] = e
+                pw = pw + 1
+            while pr < len(nums) and e == nums[pr]:
+                pr = pr + 1
+
+        return pw

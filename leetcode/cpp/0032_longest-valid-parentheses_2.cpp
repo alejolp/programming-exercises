@@ -6,7 +6,7 @@ public:
 
         while (k < s.size()) {
             int i = k, c = 0, f = -1;
-            int l2 = 0, l2i = -1;
+            int l2 = 0;
             
             while (i < s.size()) {
                 if (s[i] == '(') {
@@ -21,7 +21,6 @@ public:
                 }
                 if (c == 0) {
                     l2 = i - k + 1;
-                    l2i = i;
                 }
                 i++;
             }
@@ -31,7 +30,7 @@ public:
             if (f != -1) {
                 k = f + 1;
             } else if (l2 > 0) {
-                k = l2i;
+                k += l2;
             } else {
                 k++;
             }

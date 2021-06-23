@@ -1,0 +1,15 @@
+function twoSum(nums: number[], target: number): number[] {
+    let xdict = {};
+    
+    for (let idx = 0; idx < nums.length; idx++) {
+        let e = nums[idx];
+        let x = target - e;
+        let r = xdict[x];
+        
+        if (r !== undefined) {
+            return [r, idx];
+        } else {
+            xdict[e] = idx;
+        }
+    }
+};

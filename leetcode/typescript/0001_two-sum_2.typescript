@@ -1,0 +1,13 @@
+function twoSum(nums: number[], target: number): number[] {
+    let xdict = {};
+    let idx = 0;
+    for (let e of nums) {
+        let x = target - e;
+        if (x in xdict) {
+            return [xdict[x], idx];
+        } else {
+            xdict[e] = idx;
+        }
+        idx = idx + 1;
+    }
+};

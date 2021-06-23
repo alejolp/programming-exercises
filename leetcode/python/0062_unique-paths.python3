@@ -1,0 +1,18 @@
+class Solution:
+    def f(self, x, y, m, n):
+        k = (x, y)
+        if k in self.d:
+            return self.d[k]
+        if x >= m or y >= n:
+            return 0
+        if x == (m - 1) and y == (n - 1):
+            return 1
+        
+        a = self.f(x + 1, y, m, n)
+        b = self.f(x, y + 1, m, n)
+        self.d[k] = a + b
+        return a + b
+        
+    def uniquePaths(self, m: int, n: int) -> int:
+        self.d  = {}
+        return self.f(0, 0, m, n)

@@ -1,0 +1,14 @@
+class Solution:
+    def rec(self, grid, x, y, dd):
+        if y >= len(grid) or x >= len(grid[0]):
+            return 1<<31
+        if y == len(grid) - 1 and x == len(grid[0]) - 1:
+            return grid[y][x]
+        if (x,y) in dd:
+            return dd[x,y]
+        res = grid[y][x] + min(self.rec(grid, x + 1, y, dd), self.rec(grid, x, y + 1, dd))
+        dd[x,y] = res
+        return res
+    
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        return self.rec(grid, 0, 0, {})

@@ -1,0 +1,16 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        result = []
+        for x in nums1:
+            idx = nums2.index(x)
+            mm = x
+            while idx < len(nums2):
+                if nums2[idx] > x:
+                    mm = nums2[idx]
+                    break
+                idx = idx + 1
+            if mm != x:
+                result.append(mm)
+            else:
+                result.append(-1)
+        return result

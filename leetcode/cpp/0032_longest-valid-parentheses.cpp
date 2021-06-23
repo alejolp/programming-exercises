@@ -1,11 +1,10 @@
-
 class Solution {
 public:
     int longestValidParentheses(string s) {
         vector<int> stack;
         int mm = 0;
         
-        //stack.reserve(s.size());
+        stack.reserve(s.size());
         stack.push_back(-1);
         
         for (int i = 0; i < s.size(); ++i) {

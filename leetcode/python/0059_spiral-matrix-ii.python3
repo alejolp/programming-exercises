@@ -1,0 +1,41 @@
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        
+        matrix = [[None for x1 in range(n)] for x2 in range(n)]
+        
+        w = n
+        h = n
+        y = 0
+        x = 0
+        d = 'R'
+        k = 1
+        
+        while k <= (w * h):
+            matrix[y][x] = k
+            k = k + 1
+            
+            if d == 'R':
+                x = x + 1
+                if x >= w or matrix[y][x] is not None:
+                    x = x - 1
+                    y = y + 1
+                    d = 'D'
+            elif d == 'D':
+                y = y + 1
+                if y >= h or matrix[y][x] is not None:
+                    y = y - 1
+                    x = x - 1
+                    d = 'L'
+            elif d == 'L':
+                x = x - 1
+                if x < 0 or matrix[y][x] is not None:
+                    x = x + 1
+                    y = y - 1
+                    d = 'U'
+            elif d == 'U':
+                y = y - 1
+                if y < 0 or matrix[y][x] is not None:
+                    y = y + 1
+                    x = x + 1
+                    d = 'R'
+        return matrix

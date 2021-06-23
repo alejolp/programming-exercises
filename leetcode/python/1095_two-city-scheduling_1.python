@@ -1,0 +1,14 @@
+class Solution(object):
+    def twoCitySchedCost(self, costs):
+        """
+        :type costs: List[List[int]]
+        :rtype: int
+        """
+        a = [((y - x), i, x, y) for i, (x, y) in enumerate(costs)]
+        a.sort()
+        b = 0
+        for i in range(0, len(a) / 2):
+            b = b + a[i][3]
+        for i in range(len(a) / 2, len(a)):
+            b = b + a[i][2]
+        return b

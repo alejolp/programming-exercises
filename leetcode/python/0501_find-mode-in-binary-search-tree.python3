@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findMode(self, root: TreeNode) -> List[int]:
+        if root is None:
+            return []
+        qq =  [root]
+        dd =  {}
+        while len(qq) > 0:
+            item = qq.pop(-1)
+            if item.left:
+                qq.append(item.left)
+            if item.right:
+                qq.append(item.right)
+            dd[item.val] = dd.get(item.val, 0) + 1
+        tmp = sorted(dd.items(), key=lambda x: -x[1])
+        result = []
+        idx = 0
+        while idx < len(tmp) and tmp[idx][1] == tmp[0][1]:
+            result.append(tmp[idx][0])
+            idx = idx + 1
+        return result

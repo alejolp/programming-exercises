@@ -1,0 +1,30 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        from collections import deque
+
+        if root is None:
+            return []
+
+        qq = deque([root, None])
+        rr = [[]]
+        
+        while len(qq):
+            e = qq.popleft()
+            if e is None:
+                if len(qq) > 0:
+                    rr.append([])
+                    qq.append(None)
+            else:
+                rr[-1].append(e.val)
+                if e.left:
+                    qq.append(e.left)
+                if e.right:
+                    qq.append(e.right)
+        
+        return rr

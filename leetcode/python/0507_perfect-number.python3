@@ -1,0 +1,17 @@
+import math
+
+class Solution:
+    def checkPerfectNumber(self, num: int) -> bool:
+        if num <= 0:
+            return False
+        dd = 0
+        lim = math.sqrt(num)
+        x = 1
+        while x <= lim:
+            if (num % x) == 0:
+                print(x)
+                dd = dd + x
+                if x*x != num:
+                    dd = dd + num / x
+            x = x + 1
+        return (dd - num) == num

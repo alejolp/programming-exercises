@@ -1,0 +1,49 @@
+class UndergroundSystem(object):
+
+    def __init__(self):
+        self.D = {}
+        self.P = {}
+
+    def checkIn(self, id, stationName, t):
+        """
+        :type id: int
+        :type stationName: str
+        :type t: int
+        :rtype: None
+        """
+        assert id not in self.D
+        self.D[id] = (stationName, t)
+        
+
+    def checkOut(self, id, stationName, t):
+        """
+        :type id: int
+        :type stationName: str
+        :type t: int
+        :rtype: None
+        """
+        startName, t0 = self.D[id]
+        del self.D[id]
+        
+        key = (startName, stationName)
+        if key in self.P:
+            self.P[key].append(t - t0)
+        else:
+            self.P[key] = [t - t0]
+
+    def getAverageTime(self, startStation, endStation):
+        """
+        :type startStation: str
+        :type endStation: str
+        :rtype: float
+        """
+        key = (startStation, endStation)
+        return (sum(self.P[key]) * 1.0) / len(self.P[key])
+        
+
+
+# Your UndergroundSystem object will be instantiated and called as such:
+# obj = UndergroundSystem()
+# obj.checkIn(id,stationName,t)
+# obj.checkOut(id,stationName,t)
+# param_3 = obj.getAverageTime(startStation,endStation)

@@ -1,0 +1,10 @@
+import math
+
+class Solution:
+    def findNumbers(self, nums: List[int]) -> int:
+        nn = 0
+        for e in nums:
+            a = math.ceil(math.log(e + 0.5, 10))
+            if (a % 2) == 0:
+                nn = nn + 1
+        return nn
