@@ -1,0 +1,31 @@
+def find_rotated(L, x):
+    a, b = 0, len(L) - 1
+
+    while a <= b:
+        m = a + (b - a) // 2
+        #print (('x', a,b,m))
+
+        if L[m] == x:
+            return m
+        elif L[m] > L[b]: # the shift is on the right
+            if x >= L[a] and x < L[m]:
+                b = m - 1
+            else:
+                a = m + 1
+        elif L[m] < L[a]: # the shift is on the left
+            if x <= L[b] and x > L[m]:
+                a = m + 1
+            else:
+                b = m - 1
+        else: # the shift is outside
+            if x < L[m]:
+                b = m - 1
+            else:
+                a = m + 1
+
+    return -1
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        p = find_rotated(nums, target)
+        return p
