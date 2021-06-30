@@ -1,0 +1,25 @@
+DIGITS = {
+    'I': 1,
+    'V': 5,
+    'X': 10,
+    'L': 50,
+    'C': 100,
+    'D': 500,
+    'M': 1000,
+}
+
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        n = 0
+        i = 0
+        while i < len(s):
+            e = s[i]
+            k = i
+            while i < len(s) and s[i] == e:
+                i = i + 1
+            d = (i - k) * DIGITS[e]
+            if i < len(s) and DIGITS[e] < DIGITS[s[i]]:
+                n = n - d
+            else:
+                n = n + d
+        return n
